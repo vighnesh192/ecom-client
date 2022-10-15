@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from '../components/Form/Form';
 import { connect } from 'react-redux';
-import { setUserProfile } from '../actions/userActions';
+import { signUpAction } from '../actions/userActions';
 import { useNavigate } from 'react-router-dom';
 
 function SignupPage(props) {
@@ -88,10 +88,11 @@ function SignupPage(props) {
         line2: addressLine2,
         pincode
       },
-      phoneNo
+      phoneNo,
+      type: 'Customer'
     }
     props.setUserProfile(data);
-    if(props.user.profile) navigate('/');
+    if(props.user.profile) navigate('/signin');
   }
 
   return (
@@ -111,7 +112,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserProfile: (userData) => dispatch(setUserProfile(userData))
+    setUserProfile: (userData) => dispatch(signUpAction(userData))
   }
 }
 

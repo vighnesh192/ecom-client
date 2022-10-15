@@ -19,11 +19,24 @@ const setUserProfileSuccess = (userData) => {
     }
 }
 
-export const setUserProfile = (data) => {
+export const signUpAction = (data) => {
     console.log("ACTION Data", data);
     return (dispatch) => {
         dispatch(setUserLoading())
         axios.post('/auth/register', data)
+            .then((res) => {
+                console.log("RESPONSE", res.data)
+                dispatch(setUserProfileSuccess(res.data));
+                dispatch(unsetUserLoading());  
+            })
+    }
+}
+
+export const signInAction = (data) => {
+    console.log("ACTION Data", data);
+    return (dispatch) => {
+        dispatch(setUserLoading())
+        axios.post('/auth/login', data)
             .then((res) => {
                 console.log("RESPONSE", res.data)
                 dispatch(setUserProfileSuccess(res.data));

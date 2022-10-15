@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Form from '../components/Form/Form';
 import { connect } from 'react-redux';
 import { setUserProfile } from '../actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 function SignupPage(props) {
   const fields = [
@@ -47,6 +48,8 @@ function SignupPage(props) {
     },
   ]
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     console.log('USER STATE' ,props.user);
   }, [props.user])
@@ -88,6 +91,7 @@ function SignupPage(props) {
       phoneNo
     }
     props.setUserProfile(data);
+    if(props.user.profile) navigate('/');
   }
 
   return (

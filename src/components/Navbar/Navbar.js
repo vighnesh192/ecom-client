@@ -11,7 +11,7 @@ function Navbar(props) {
         <div className='flex w-1/2 justify-end gap-x-10'>
             <NavLink to="/">Home</NavLink>
             {
-              !props.user.profile.token ? 
+              !localStorage.getItem('token') ? 
               <>
                 <NavLink to="signup">Signup</NavLink>
                 <NavLink to="signin">Signin</NavLink>

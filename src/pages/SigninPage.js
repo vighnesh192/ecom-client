@@ -21,7 +21,8 @@ function SigninPage(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('USER STATE' ,props.user);
+        if(props.user?.profile?.token) localStorage.setItem('token', props.user?.profile?.token)
+        if(localStorage.getItem('token')) navigate("/");
     }, [props.user])
     
 
@@ -47,7 +48,6 @@ function SigninPage(props) {
             password,
         }
         props.setUserProfile(data);
-        if(props.user.profile) navigate('/');
     }
 
     return (

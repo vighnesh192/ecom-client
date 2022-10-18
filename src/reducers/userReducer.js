@@ -18,7 +18,6 @@ const userReducer = (state = initialState, action) => {
             }
 
         case 'SET_USER_PROFILE_SUCCESS':
-            console.log('in SET_USER_PROFILE_SUCCESS reducer')
             return {
                 ...state,
                 profile: action.payload

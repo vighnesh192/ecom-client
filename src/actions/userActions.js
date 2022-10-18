@@ -12,7 +12,7 @@ const unsetUserLoading = () => {
     }
 }
 
-const setUserProfileSuccess = (userData) => {
+export const setUserProfileSuccess = (userData) => {
     return {
         type: 'SET_USER_PROFILE_SUCCESS',
         payload: userData

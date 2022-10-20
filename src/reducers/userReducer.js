@@ -1,6 +1,7 @@
 const initialState = {
     isLoading: false,
-    profile: undefined
+    profile: undefined,
+    token: undefined
 }
 
 const userReducer = (state = initialState, action) => {
@@ -21,6 +22,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: action.payload
+            }
+
+        case 'SET_TOKEN':
+            return {
+                ...state,
+                token: action.payload.token
             }
     
         default:

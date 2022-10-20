@@ -19,6 +19,13 @@ export const setUserProfileSuccess = (userData) => {
     }
 }
 
+export const setToken = (token) => {
+    return {
+        type: 'SET_TOKEN',
+        payload: token
+    }
+}
+
 export const signUpAction = (data) => {
     console.log("ACTION Data", data);
     return (dispatch) => {
@@ -29,17 +36,18 @@ export const signUpAction = (data) => {
                 dispatch(setUserProfileSuccess(res.data));
                 dispatch(unsetUserLoading());  
             })
+        }
     }
-}
-
-export const signInAction = (data) => {
-    console.log("ACTION Data", data);
-    return (dispatch) => {
-        dispatch(setUserLoading())
-        axios.post('/auth/login', data)
+    
+    export const signInAction = (data) => {
+        console.log("ACTION Data", data);
+        return (dispatch) => {
+            dispatch(setUserLoading())
+            axios.post('/auth/login', data)
             .then((res) => {
                 console.log("RESPONSE", res.data)
                 dispatch(setUserProfileSuccess(res.data));
+                dispatch(setToken(res.data))
                 dispatch(unsetUserLoading());  
             })
     }

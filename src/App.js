@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { setUserProfileSuccess } from './actions/userActions';
+import { setToken, setUserProfileSuccess } from './actions/userActions';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
@@ -19,6 +19,7 @@ export default function App() {
         if(res.data.loggedIn) {
           console.log("LoggedIn", res.data);
           dispatch(setUserProfileSuccess(res.data.profile))
+          dispatch(setToken({token: localStorage.getItem('token')}))
         }
       })
       .catch(err => {

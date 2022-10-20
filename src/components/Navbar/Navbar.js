@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { setToken } from '../../actions/userActions';
+import { FaAngleDown, FaUserCog } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 
 function Navbar(props) {
   const token = useSelector(state => state.user.token);
@@ -31,6 +33,11 @@ function Navbar(props) {
               <NavLink to="signin" onClick={handleLogoutClick}>Logout</NavLink>
             }
             <NavLink to="about">About</NavLink>
+            <div className='flex items-center hover: cursor-pointer text-xl'>
+              {/* <FaRegUser />
+              <FaAngleDown /> */}
+              <FaUserCog />
+            </div>
         </div>
     </nav>
   )

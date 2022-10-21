@@ -40,7 +40,6 @@ function SigninPage(props) {
     }
 
     const handleSubmit = (e) => {
-        console.log('handleSubmit Login');
         e.preventDefault();
         const {email, password} = userDetails; 
         const data = {

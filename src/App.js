@@ -1,11 +1,12 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { setToken, setUserProfileSuccess } from './actions/userActions';
+import { checkLoggedInAction, setToken, setUserProfileSuccess } from './actions/userActions';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
+import Profile from './pages/Profile';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
 
@@ -14,18 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('/auth/checkLoggedIn', { 'headers': { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
-      .then((res) => {
-        if(res.data.loggedIn) {
-          console.log("LoggedIn", res.data);
-          dispatch(setUserProfileSuccess(res.data.profile))
-          dispatch(setToken({token: localStorage.getItem('token')}))
-        }
-      })
-      .catch(err => {
-        localStorage.removeItem('token');
-        navigate('signin')
-      })
+    dispatch(checkLoggedInAction(localStorage.getItem('token'), navigate))
   }, [])
   
   return (
@@ -35,6 +25,7 @@ export default function App() {
         <Route path='/' element={<HomePage />}></Route>
         <Route path='/signup' element={<SignupPage />}></Route>
         <Route path='/signin' element={<SigninPage />}></Route>
+        <Route path='/profile' element={<Profile />}></Route>
       </Routes>
     </>
   )

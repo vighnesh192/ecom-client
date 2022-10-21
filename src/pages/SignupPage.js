@@ -75,7 +75,6 @@ function SignupPage(props) {
   }
 
   const handleSubmit = (e) => {
-    console.log('handleSubmit');
     e.preventDefault();
     const {firstName, lastName, email, password, phoneNo, pincode, addressLine1, addressLine2} = userDetails; 
     const data = {

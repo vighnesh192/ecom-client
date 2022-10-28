@@ -45,7 +45,7 @@ function SignupPage(props) {
       fieldName: 'Pin code',
       type: 'number',
       twoCols: false,
-    },
+    }
   ]
 
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ function SignupPage(props) {
   return (
     <div className='flex justify-center mt-20'>
       <div className="w-96">
-        <Form onSubmit={handleSubmit} handleOnChange={handleOnChange} fields={fields} action="Sign Up" />
+        <Form onSubmit={handleSubmit} handleOnChange={handleOnChange} fields={fields} initialValues={userDetails} action="Sign Up" />
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { toCamelCase } from '../../utils'
 import './Input.css'
 
-function Input({fieldName, type, initialVal, initialValue, ...props}) {
+function Input({fieldName, type, initialVal, initialValue, options, ...props}) {
   // const [InitialVal, setInitialVal] = useState(initialVal)
   // useEffect(() => { console.log('InitialVal', InitialVal); setInitialVal(initialVal) }, [initialVal])
   
@@ -14,8 +14,17 @@ function Input({fieldName, type, initialVal, initialValue, ...props}) {
       {/* Add name attr */}
       {/* Add onChange attr and pass event param to onChange() from props */}
       {
-        initialValue || initialValue?.length >= 0 ? 
-        <input value={initialValue} onChange={props.handleOnChange} name={toCamelCase(fieldName)} placeholder={`${fieldName}`} type={`${type}`} className="focus:outline-none focus:ring focus:ring-primary focus:ring-1 form-input px-4 py-3 w-full rounded-sm" />
+        initialValue || initialValue == null || initialValue?.length >= 0 ? 
+          type == 'select' ? 
+          <select onChange={props.handleOnChange} name={toCamelCase(fieldName)} className="focus:outline-none focus:ring-primary focus:ring-1 form-input px-4 py-3 w-full rounded-sm">
+            {
+              options?.map((val, ind) => {
+                return <option value={val} key={ind}>{val}</option>
+              })
+            }
+          </select>
+          :
+          <input value={initialValue} onChange={props.handleOnChange} name={toCamelCase(fieldName)} placeholder={`${fieldName}`} type={`${type}`} className="focus:outline-none focus:ring-primary focus:ring-1 form-input px-4 py-3 w-full rounded-sm" />
         :
         <></>
       }

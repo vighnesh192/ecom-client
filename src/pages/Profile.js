@@ -66,6 +66,12 @@ function Profile(props) {
         type: 'number',
         twoCols: false,
         initialVal: address?.pincode
+      },  
+      {
+        fieldName: 'Type',
+        type: 'select',
+        options: ['Customer', 'Seller'],
+        twoCols: false,
       },
     ])
   }, [])
@@ -84,6 +90,7 @@ function Profile(props) {
       pincode: null,
       phoneNo: null,
       email: '',
+      type: 'Customer'
   })
   
   useEffect(() => {
@@ -117,7 +124,7 @@ function Profile(props) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {firstName, lastName, email, phoneNo, pincode, addressLine1, addressLine2} = userDetails; 
+    const {firstName, lastName, email, phoneNo, pincode, addressLine1, addressLine2, type} = userDetails; 
     const data = {
       firstName,
       lastName,
@@ -128,7 +135,7 @@ function Profile(props) {
         pincode
       },
       phoneNo,
-      type: 'Customer'
+      type
     }
     dispatch(updateProfileAction(localStorage.getItem('id'), data, localStorage.getItem('token')))
   }

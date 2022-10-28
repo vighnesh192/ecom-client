@@ -49,6 +49,19 @@ export const signInAction = (data) => {
     }
 }
 
+export const updateProfileAction = (id, data, token) => {
+    return (dispatch) => {
+        dispatch(setUserLoading())
+        axios.post(`/users/update/${id}`, data, { 'headers': { 'Authorization': `Bearer ${token}` } })
+        .then((res) => {
+            console.log("RESPONSE", res.data)
+            dispatch(setUserProfileSuccess(res.data));
+            dispatch(setToken({token}))
+            dispatch(unsetUserLoading());  
+        })
+    }
+}
+
 export const setUserProfileAction = ({id, token}) => {
     return (dispatch) => {
         dispatch(setUserLoading())

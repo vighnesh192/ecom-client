@@ -5,7 +5,6 @@ function HomePage() {
   const userState = useSelector(state => state.user);
 
   useEffect(() => {
-    console.log(userState)
   }, [userState]);
   
   return (

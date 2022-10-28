@@ -10,28 +10,28 @@ function SigninPage(props) {
             fieldName: 'Email',
             type: 'email',
             twoCols: false,
+            initialVal: ''
         },
         {
             fieldName: 'Password',
             type: 'password',
             twoCols: false,
+            initialVal: ''
         },
     ]
 
     const navigate = useNavigate();
 
+    const [userDetails, setUserDetails] = useState({
+        email: '',
+        password: '',
+    })
+    
     useEffect(() => {
         if(props.user?.profile?.token) localStorage.setItem('token', props.user?.profile?.token)
         if(localStorage.getItem('token')) navigate("/");
     }, [props.user])
     
-
-    const [userDetails, setUserDetails] = useState({
-        email: '',
-        password: '',
-    })
-
-    // Create onChange(event) {}
     const handleOnChange = (e) => {
         setUserDetails({
             ...userDetails,
@@ -52,7 +52,7 @@ function SigninPage(props) {
     return (
         <div className='flex justify-center mt-20'>
             <div className="w-96">
-                <Form onSubmit={handleSubmit} handleOnChange={handleOnChange} fields={fields} action="Sign In" />
+                <Form onSubmit={handleSubmit} handleOnChange={handleOnChange} fields={fields} initialValues={userDetails} action="Sign In" />
             </div>
         </div>
     )

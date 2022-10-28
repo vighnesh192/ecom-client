@@ -1,22 +1,149 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken, setUserProfileAction } from '../actions/userActions';
+import { useNavigate } from 'react-router-dom';
+import { checkLoggedInAction, setToken, setUserProfileAction, updateProfileAction } from '../actions/userActions';
+import Form from '../components/Form/Form';
+import { getProfileDetailsService } from '../services/userServices';
 
 function Profile(props) {
-    const user = useSelector(state => state.user);
-    // const token = useSelector(state => state.user.token);
-    // const [token, setTokenState] = useState(localStorage.getItem('token'))
+  const profile = useSelector(state => state.user.profile);
+  
+  const [fields, setFields] = useState([])
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkLoggedInAction(localStorage.getItem('token'), navigate))
+  }, [])
+  
+  
+  useEffect(() => {
+    let firstName, lastName, phoneNo, email, address;
+    if(profile) {
+      ({ firstName, lastName, phoneNo, email, address } = profile);
+    }
+    console.log("Profile", profile)
+    setFields([
+      {
+        fieldName: 'First Name',
+        type: 'text',
+        twoCols: true,
+        initialVal: firstName
+      },
+      {
+        fieldName: 'Last Name',
+        type: 'text',
+        twoCols: true,
+        initialVal: lastName
+      },
+      {
+        fieldName: 'Phone No',
+        type: 'number',
+        twoCols: false,
+        initialVal: phoneNo
+      },
+      {
+        fieldName: 'Email',
+        type: 'email',
+        twoCols: false,
+        initialVal: email
+      },
+      {
+        fieldName: 'Address Line1',
+        type: 'text',
+        twoCols: false,
+        initialVal: address?.line1
+      },
+      {
+        fieldName: 'Address Line2',
+        type: 'text',
+        twoCols: false,
+        initialVal: address?.line2
+      },
+      {
+        fieldName: 'Pin code',
+        type: 'number',
+        twoCols: false,
+        initialVal: address?.pincode
+      },
+    ])
+  }, [])
+
+  
+  
+  // const setFields = () => {
+    //   return 
+    // }
+    
+    const [userDetails, setUserDetails] = useState({
+      firstName: '',
+      lastName: '',
+      addressLine1: '',
+      addressLine2: '',
+      pincode: null,
+      phoneNo: null,
+      email: '',
+  })
+  
+  useEffect(() => {
+    console.log("USER DETAILS", userDetails)
+  }, [fields, userDetails])
+
+  useEffect(() => {
+    const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
-    const dispatch = useDispatch();
-    useEffect(() => {
-      const id = localStorage.getItem('id');
-      dispatch(setUserProfileAction({id, token}))
-      dispatch(setToken({token}));
-    }, [])
+    dispatch(setUserProfileAction({id, token}))
+    dispatch(setToken({token}));
+    getProfileDetails(id, token);
+  }, [])
+
+  const getProfileDetails = async (id, token) => {
+    const data = await getProfileDetailsService(id, token);
+    data.addressLine1 = data.address.line1;
+    data.addressLine2 = data.address.line2;
+    data.pincode = data.address.pincode;
+    setUserDetails(data);
+    console.log("FETCH", await getProfileDetailsService(id, token))
+  }
+  
+    // Create onChange(event) {}
+  const handleOnChange = (e) => {
+    setUserDetails({
+      ...userDetails,
+      [e.target.name]: e.target.value
+    })
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const {firstName, lastName, email, phoneNo, pincode, addressLine1, addressLine2} = userDetails; 
+    const data = {
+      firstName,
+      lastName,
+      email, 
+      address: {
+        line1: addressLine1,
+        line2: addressLine2,
+        pincode
+      },
+      phoneNo,
+      type: 'Customer'
+    }
+    dispatch(updateProfileAction(localStorage.getItem('id'), data, localStorage.getItem('token')))
+  }
     
     return (
-        <div>Profile</div>
+      <div className='flex justify-center mt-20'>
+        <div className="w-96">
+          {
+            fields.length > 0 ?
+            <Form onSubmit={handleSubmit} handleOnChange={handleOnChange} initialValues={userDetails} fields={fields} action="Update" />
+            :
+            <></>
+          }
+        </div>
+      </div>
     )
 }
 

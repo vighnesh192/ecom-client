@@ -16,7 +16,7 @@ function Input({fieldName, type, initialVal, initialValue, options, ...props}) {
       {
         initialValue || initialValue == null || initialValue?.length >= 0 ? 
           type == 'select' ? 
-          <select onChange={props.handleOnChange} name={toCamelCase(fieldName)} className="focus:outline-none focus:ring-primary focus:ring-1 form-input px-4 py-3 w-full rounded-sm">
+          <select value={initialValue} onChange={props.handleOnChange} name={toCamelCase(fieldName)} className="focus:outline-none focus:ring-primary focus:ring-1 form-input px-4 py-3 w-full rounded-sm">
             {
               options?.map((val, ind) => {
                 return <option value={val} key={ind}>{val}</option>

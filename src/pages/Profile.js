@@ -94,7 +94,6 @@ function Profile(props) {
   })
   
   useEffect(() => {
-    console.log("USER DETAILS", userDetails)
   }, [fields, userDetails])
 
   useEffect(() => {
@@ -111,7 +110,6 @@ function Profile(props) {
     data.addressLine2 = data.address.line2;
     data.pincode = data.address.pincode;
     setUserDetails(data);
-    console.log("FETCH", await getProfileDetailsService(id, token))
   }
   
     // Create onChange(event) {}

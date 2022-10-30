@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { checkLoggedInAction, setToken, setUserProfileAction, updateProfileAction } from '../actions/userActions';
 import Form from '../components/Form/Form';
 import { getProfileDetailsService } from '../services/userServices';
@@ -11,6 +11,7 @@ function Profile(props) {
   const [fields, setFields] = useState([])
   
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +24,6 @@ function Profile(props) {
     if(profile) {
       ({ firstName, lastName, phoneNo, email, address } = profile);
     }
-    console.log("Profile", profile)
     setFields([
       {
         fieldName: 'First Name',
@@ -94,7 +94,10 @@ function Profile(props) {
   })
   
   useEffect(() => {
-  }, [fields, userDetails])
+    if(profile?.type == 'Seller' && location?.state?.prevPath !== '/sellerProfile') {
+      navigate('/sellerProfile')
+    }
+  }, [fields, userDetails, profile])
 
   useEffect(() => {
     const id = localStorage.getItem('id');

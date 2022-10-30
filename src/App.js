@@ -7,6 +7,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
 import Profile from './pages/Profile';
+import SellerProfile from './pages/SellerProfile';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
 
@@ -26,6 +27,7 @@ export default function App() {
         <Route path='/signup' element={<SignupPage />}></Route>
         <Route path='/signin' element={<SigninPage />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
+        <Route path='/sellerProfile' element={<SellerProfile />}></Route>
       </Routes>
     </>
   )

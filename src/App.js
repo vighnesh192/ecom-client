@@ -1,12 +1,12 @@
-// import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { checkLoggedInAction, setToken, setUserProfileSuccess } from './actions/userActions';
+import { checkLoggedInAction } from './actions/userActions';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
 import Profile from './pages/Profile';
+import SellerProductsPage from './pages/SellerProductsPage';
 import SellerProfile from './pages/SellerProfile';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
@@ -28,6 +28,7 @@ export default function App() {
         <Route path='/signin' element={<SigninPage />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/sellerProfile' element={<SellerProfile />}></Route>
+        <Route path='/sellerProducts' element={<SellerProductsPage />}></Route>
       </Routes>
     </>
   )

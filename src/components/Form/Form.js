@@ -20,7 +20,7 @@ function Form({fields, action, onSubmit, handleOnChange, initialValues, ...props
                     if(!twoCols) {
                         return(
                             <React.Fragment key={ind}>
-                                <Input handleOnChange={handleOnChange} fieldName={fieldName} type={type} initialValue={initialValues[toCamelCase(fieldName)]} options={options} />
+                                <Input imageState={props.imageState} handleImageChange={props.handleImageChange} handleOnChange={handleOnChange} fieldName={fieldName} type={type} initialValue={initialValues[toCamelCase(fieldName)]} options={options} />
                             </React.Fragment>
                         )
                     }

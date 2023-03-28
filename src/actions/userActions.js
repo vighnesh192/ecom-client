@@ -43,6 +43,7 @@ export const signInAction = (data) => {
         axios.post('/auth/login', data)
         .then((res) => {
             dispatch(setUserProfileSuccess(res.data));
+            dispatch(checkLoggedInAction(res.data.token));
             dispatch(setToken(res.data))
             dispatch(unsetUserLoading());  
         })

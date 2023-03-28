@@ -142,7 +142,8 @@ function Profile(props) {
   }
     
     return (
-      <div className='flex justify-center mt-20'>
+      <div className='flex flex-col items-center mt-20'>
+        <h1 className='font-semibold text-2xl mb-6'>Edit Profile</h1>
         <div className="w-96">
           {
             fields.length > 0 ?

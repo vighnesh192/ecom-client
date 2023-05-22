@@ -1,5 +1,5 @@
 import axios from "axios";
-import { postProduct } from "../services/productServices";
+import { getProductsBySeller, postProduct } from "../services/productServices";
 
 const setProductLoading = () => {
     return {
@@ -20,6 +20,13 @@ export const postProductSuccess = (productData) => {
     }
 }
 
+export const setProducts = (products) => {
+    return {
+        type: 'SET_PRODUCTS',
+        payload: products
+    }
+}
+
 export const postProductAction = (token, data) => {
 
     return (dispatch) => {
@@ -35,4 +42,21 @@ export const postProductAction = (token, data) => {
         dispatch(unsetProductLoading());
     }
 
+}
+
+export const getProductsBySellerAction = (sellerId) => {
+    return (dispatch) => {
+        dispatch(setProductLoading);
+        getProductsBySeller(sellerId)
+            .then(
+                products => {
+                    dispatch(setProducts(products));
+                    dispatch(unsetProductLoading());
+                },
+                err => dispatch(unsetProductLoading())
+            )
+            .catch(
+                err => dispatch(unsetProductLoading())
+            );
+    }
 }

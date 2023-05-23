@@ -16,7 +16,7 @@ function Navbar(props) {
   }
   
   return (
-    <nav className='bg-primary flex px-20 py-6 text-white'>
+    <nav className='bg-primary flex px-40 py-6 text-white'>
         <NavLink to='/' className='w-1/2'> 
             ShoppIn
         </NavLink>

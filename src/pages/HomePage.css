@@ -1,0 +1,9 @@
+#hero-button {
+    width: 20%;
+}
+
+#img-container {
+    /* background-image: url("/denise-jans-rjK8ifDLnIk-unsplash.jpg"); */
+    background-color: "#ECD2FA";
+    background-blend-mode: screen;
+}
